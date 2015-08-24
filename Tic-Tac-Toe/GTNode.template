@@ -1,0 +1,106 @@
+
+
+namespace c3131416_assignment2{
+
+
+// Constructors
+
+		template<typename Obj>
+		GTNode<Obj>::GTNode(int num)
+		{
+			numNodes = num;
+			data = NULL;
+			parent = NULL;
+			//children = new GTNode<Obj>[numNodes];
+			used = 0;
+		}
+
+		template<typename Obj>
+		GTNode<Obj>::GTNode(Obj* _data, GTNode<Obj>* _parent)
+		{
+			numNodes = 8;
+			data = _data;
+			parent = _parent;
+			//children = _children;
+			used = _parent.used;
+		}
+
+		//Destructor
+		template<typename Obj>
+		GTNode<Obj>::~GTNode()
+		{
+			delete[] data;
+		}
+
+		//Mutators
+		template<typename Obj>
+		void GTNode<Obj>::setData(Obj* _data)
+		{
+			data = _data;
+		}
+
+		template<typename Obj>
+		void GTNode<Obj>::setParent(GTNode<Obj>* _parent)
+		{
+			parent = _parent;
+		}
+
+		template<typename Obj>
+		void GTNode<Obj>::addChild(GTNode<Obj>* newNode)
+		{
+			if(used < 8)
+			{
+				newNode->setParent(this);
+				children[used] = newNode;
+				used++;
+			}
+		}
+
+		//Query
+
+		template<typename Obj>
+		int GTNode<Obj>::getUsed() const
+		{
+			return used;
+		}
+
+		template<typename Obj>
+		Obj GTNode<Obj>::getData() const
+		{
+			return *data;
+		}
+
+		template<typename Obj>
+		const GTNode<Obj>* GTNode<Obj>::getParent() const
+		{
+			return data;
+		}
+
+		template<typename Obj>
+		GTNode<Obj>* GTNode<Obj>::getParent()
+		{
+			return parent;
+		}
+
+		template<typename Obj>
+		const GTNode<Obj>* GTNode<Obj>::getChild(int num) const
+		{
+			if(children[num] != NULL) return children[num];
+			else return NULL;
+		}
+
+		template<typename Obj>
+		GTNode<Obj>* GTNode<Obj>::getChild(int num)
+		{
+			if(children[num] != NULL) return children[num];
+			else return NULL;
+		}
+
+	
+		template<typename Obj>
+		std::ostream& operator<<(std::ostream& out, GTNode<Obj>& n)
+		{
+			out << n.getData();
+			return out;
+		}
+}
